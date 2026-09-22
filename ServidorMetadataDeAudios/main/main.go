@@ -16,7 +16,7 @@ func main() {
 	router.GET("/tipos", controller.ListarTipos)
 	router.GET("/tipos/:idTipo/audios", controller.ListarAudiosPorTipo)
 	router.GET("/audios/musica/:titulo", controller.ConsultarDetalleMusica)
-	// router.GET("/audios/podcast/:titulo", controller.ConsultarDetallePodcast)
+	router.GET("/audios/podcast/:titulo", controller.ConsultarDetallePodcast)
 	// router.GET("/audios/audiolibro/:titulo", controller.ConsultarDetalleAudiolibro)
 	// router.GET("/audios/ruidoblanco/:titulo", controller.ConsultarDetalleRuidoBlanco)
 
