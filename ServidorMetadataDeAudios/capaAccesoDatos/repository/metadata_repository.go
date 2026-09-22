@@ -2,6 +2,7 @@ package repository
 
 import (
 	"log"
+
 	"servidor.local/metadata-servidor/capaAccesoDatos/entity"
 )
 
@@ -95,5 +96,14 @@ func (r *MetadataRepository) BuscarMusicaPorTitulo(titulo string) (entity.Metada
 	}
 	return entity.MetadataMusica{}, false
 }
+
 // BuscarPodcastPorTitulo, BuscarAudiolibroPorTitulo, BuscarRuidoBlancoPorTitulo
 // siguen exactamente el mismo patrón que BuscarMusicaPorTitulo de arriba.
+func (r *MetadataRepository) BuscarPodcastPorNombre(nombre string) (entity.MetadataPodcast, bool) {
+	for _, p := range r.podcasts {
+		if p.GetNombrePodcast() == nombre {
+			return p, true
+		}
+	}
+	return entity.MetadataPodcast{}, false
+}

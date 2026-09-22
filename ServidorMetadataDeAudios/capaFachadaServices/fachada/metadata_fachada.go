@@ -2,6 +2,7 @@ package fachada
 
 import (
 	"log"
+
 	"servidor.local/metadata-servidor/capaAccesoDatos/repository"
 	"servidor.local/metadata-servidor/capaFachadaServices/dto"
 )
@@ -50,7 +51,7 @@ func (f *MetadataFachada) ObtenerAudiosPorTipo(idTipo int) []dto.AudioResumenDTO
 	return resultado
 }
 
-// ObtenerDetalleMusica retorna el detalle completo (vista4) de una canción.
+// ObtenerDetalleMusica retorna el detalle completo de una canción.
 func (f *MetadataFachada) ObtenerDetalleMusica(titulo string) (dto.MusicaDetalleDTO, bool) {
 	log.Printf("Eco [fachada]: ObtenerDetalleMusica llamado con titulo=%s\n", titulo)
 	m, encontrado := f.repo.BuscarMusicaPorTitulo(titulo)
@@ -64,5 +65,23 @@ func (f *MetadataFachada) ObtenerDetalleMusica(titulo string) (dto.MusicaDetalle
 		Archivo: m.GetArchivo(),
 	}, true
 }
+
 // ObtenerDetallePodcast, ObtenerDetalleAudiolibro, ObtenerDetalleRuidoBlanco
 // siguen el mismo patrón que ObtenerDetalleMusica.
+// ObtenerDetallePodcast retorna el detalle completo de un podcast.
+func (f *MetadataFachada) ObtenerDetallePodcast(nombre string) (dto.PodcastDetalleDTO, bool) {
+	log.Printf("Eco [fachada]: ObtenerDetallePodcast llamado con titulo=%s\n", nombre)
+	p, encontrado := f.repo.BuscarPodcastPorNombre(nombre)
+	if !encontrado {
+		return dto.PodcastDetalleDTO{}, false
+	}
+	return dto.PodcastDetalleDTO{
+		NombrePodcast:     p.GetNombrePodcast(),
+		TituloEpisodio:    p.GetTituloEpisodio(),
+		Anfitrion:         p.GetAnfitrion(),
+		TemporadaEpisodio: p.GetTemporadaEpisodio(),
+		NotasShow:         p.GetNotasShow(),
+		Clasificacion:     p.GetClasificacion(),
+		Archivo:           p.GetArchivo(),
+	}, true
+}

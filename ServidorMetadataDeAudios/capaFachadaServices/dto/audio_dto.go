@@ -24,3 +24,13 @@ type MusicaDetalleDTO struct {
 
 // Análogos: PodcastDetalleDTO, AudiolibroDetalleDTO, RuidoBlancoDetalleDTO
 // con los mismos campos que su entity correspondiente + tag json.
+// PodcastDetalleDTO es la respuesta completa al consultar un podcast.
+type PodcastDetalleDTO struct {
+	NombrePodcast     string `json:"nombrePodcast"`
+	TituloEpisodio    string `json:"tituloEpisodio"`
+	Anfitrion         string `json:"anfitrion"`
+	TemporadaEpisodio string `json:"temporadaEpisodio"`
+	NotasShow         string `json:"notasShow"`
+	Clasificacion     string `json:"clasificacion"`
+	Archivo           string `json:"archivo"`
+}
