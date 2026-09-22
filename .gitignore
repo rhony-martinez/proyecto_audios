@@ -1,0 +1,305 @@
+# =========================================================
+# Go
+# =========================================================
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go build output
+/bin/
+/build/
+/dist/
+
+# Go coverage
+*.coverprofile
+coverage.out
+coverage.html
+
+# Go workspace
+go.work
+go.work.sum
+
+# Go tools / temporary files
+*.prof
+
+# Vendor directory
+# Descomenta si NO quieres versionar dependencias vendorizadas
+# /vendor/
+
+
+# =========================================================
+# Java
+# =========================================================
+
+# Compiled class files
+*.class
+
+# Java archives
+*.jar
+*.war
+*.ear
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+
+# =========================================================
+# Maven
+# =========================================================
+
+/target/
+/.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+
+# =========================================================
+# Gradle
+# =========================================================
+
+.gradle/
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+
+# =========================================================
+# Spring Boot
+# =========================================================
+
+# Spring Boot generated/build files
+/target/
+/build/
+
+# Local Spring configuration
+application-local.properties
+application-local.yml
+application-local.yaml
+
+# Environment-specific configuration
+application-dev.properties
+application-dev.yml
+application-dev.yaml
+
+# Secrets / credentials
+*.secret
+secrets.properties
+secrets.yml
+secrets.yaml
+
+
+# =========================================================
+# Visual Studio Code
+# =========================================================
+
+.vscode/
+
+# Si quieres compartir configuraciones específicas de VS Code,
+# puedes ignorar solo las configuraciones personales:
+# .vscode/*
+# !.vscode/settings.json
+# !.vscode/extensions.json
+
+# VS Code workspace files
+*.code-workspace
+
+
+# =========================================================
+# Operating System
+# =========================================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# Windows temporary files
+*.tmp
+*.temp
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# macOS (por si algún colaborador lo usa)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+# =========================================================
+# Environment variables
+# =========================================================
+
+.env
+.env.*
+!.env.example
+
+# Local configuration
+*.local
+
+
+# =========================================================
+# Logs
+# =========================================================
+
+*.log
+logs/
+log/
+
+
+# =========================================================
+# Temporary files
+# =========================================================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+*.rej
+
+# Temporary directories
+/tmp/
+/temp/
+
+
+# =========================================================
+# Audio generated/downloaded locally
+# =========================================================
+
+# IMPORTANTE:
+# Ignorar los audios si el proyecto los descarga/genera durante
+# la ejecución y NO forman parte del código fuente.
+
+# *.mp3
+# *.wav
+# *.flac
+# *.ogg
+# *.aac
+# *.m4a
+# *.opus
+
+/audio/
+/audios/
+/media/
+/downloads/
+
+
+# =========================================================
+# Streaming / cache
+# =========================================================
+
+/cache/
+/.cache/
+/stream-cache/
+/tmp-stream/
+
+
+# =========================================================
+# Database files
+# =========================================================
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# H2
+*.mv.db
+*.trace.db
+
+# Local database directories
+/data/
+database-data/
+
+
+# =========================================================
+# Docker
+# =========================================================
+
+# Docker volumes / local data
+docker-data/
+.docker/
+
+# NO ignorar Dockerfile ni docker-compose.yml
+
+
+# =========================================================
+# IDEs adicionales
+# =========================================================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/.nb-gradle/
+
+
+# =========================================================
+# Dependency / package managers
+# =========================================================
+
+# Node.js (por si posteriormente agregan frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Frontend build
+dist/
+build/
+
+
+# =========================================================
+# Generated documentation / reports
+# =========================================================
+
+/reports/
+/coverage/
+
+
+# =========================================================
+# Secrets / certificates / keys
+# =========================================================
+
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local SSH keys (por seguridad)
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+
+# =========================================================
+# OS / editor history
+# =========================================================
+
+.history/
