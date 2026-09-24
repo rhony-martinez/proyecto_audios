@@ -38,8 +38,8 @@ func (r *MetadataRepository) cargarTipos() {
 
 func (r *MetadataRepository) cargarMusica() {
 	r.musica = []entity.MetadataMusica{
-		entity.NewMetadataMusica("Bohemian Rhapsody", "Queen", "A Night at the Opera", "Rock", "EMI", 1975, "bohemian_rhapsody.mp3"),
-		entity.NewMetadataMusica("Blinding Lights", "The Weeknd", "After Hours", "Pop", "XO/Republic", 2020, "blinding_lights.mp3"),
+		entity.NewMetadataMusica("La funa", "AlcolirykoZ", "sencillo", "Hip Hop", "El Arkeólogo", 2025, "La funa.mp3"),
+		entity.NewMetadataMusica("El Remate", "AlcolirykoZ", "Anarcolirykoz", "Hip Hop", "El Arkeólogo", 2022, "El Remate.mp3"),
 	}
 }
 
