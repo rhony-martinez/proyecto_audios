@@ -37,7 +37,7 @@ func (f *MetadataFachada) ObtenerAudiosPorTipo(idTipo int) []dto.AudioResumenDTO
 		}
 	case 2:
 		for _, p := range f.repo.ListarPodcasts() {
-			resultado = append(resultado, dto.AudioResumenDTO{Titulo: p.GetTituloEpisodio()})
+			resultado = append(resultado, dto.AudioResumenDTO{Titulo: p.GetNombrePodcast()})
 		}
 	case 3:
 		for _, a := range f.repo.ListarAudiolibros() {
@@ -83,5 +83,41 @@ func (f *MetadataFachada) ObtenerDetallePodcast(nombre string) (dto.PodcastDetal
 		NotasShow:         p.GetNotasShow(),
 		Clasificacion:     p.GetClasificacion(),
 		Archivo:           p.GetArchivo(),
+	}, true
+}
+
+// ObtenerDetalleAudiolibro retorna el detalle completo de un audiolibro.
+func (f *MetadataFachada) ObtenerDetalleAudiolibro(titulo string) (dto.AudiolibroDetalleDTO, bool) {
+	log.Printf("Eco [fachada]: ObtenerDetalleAudiolibro llamado con titulo=%s\n", titulo)
+	a, encontrado := f.repo.BuscarAudiolibroPorTitulo(titulo)
+	if !encontrado {
+		return dto.AudiolibroDetalleDTO{}, false
+	}
+	return dto.AudiolibroDetalleDTO{
+		TituloLibro: a.GetTituloLibro(),
+		Autor:       a.GetAutor(),
+		Narrador:    a.GetNarrador(),
+		Editorial:   a.GetEditorial(),
+		Isbn:        a.GetIsbn(),
+		Capitulo:    a.GetCapitulo(),
+		Archivo:     a.GetArchivo(),
+	}, true
+}
+
+// ObtenerDetalleRuidoBlanco retorna el detalle completo de un audio de ruido blanco.
+func (f *MetadataFachada) ObtenerDetalleRuidoBlanco(titulo string) (dto.RuidoBlancoDetalleDTO, bool) {
+	log.Printf("Eco [fachada]: ObtenerDetalleRuidoBlanco llamado con titulo=%s\n", titulo)
+	rb, encontrado := f.repo.BuscarRuidoBlancoPorTitulo(titulo)
+	if !encontrado {
+		return dto.RuidoBlancoDetalleDTO{}, false
+	}
+	return dto.RuidoBlancoDetalleDTO{
+		TipoSonido:          rb.GetTipoSonido(),
+		FuenteAudio:         rb.GetFuenteAudio(),
+		UsoSugerido:         rb.GetUsoSugerido(),
+		ProveedorContenido:  rb.GetProveedorContenido(),
+		DuracionBucle:       rb.GetDuracionBucle(),
+		FrecuenciaDominante: rb.GetFrecuenciaDominante(),
+		Archivo:             rb.GetArchivo(),
 	}, true
 }
