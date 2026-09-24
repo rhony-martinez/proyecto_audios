@@ -107,3 +107,21 @@ func (r *MetadataRepository) BuscarPodcastPorNombre(nombre string) (entity.Metad
 	}
 	return entity.MetadataPodcast{}, false
 }
+
+func (r *MetadataRepository) BuscarAudiolibroPorTitulo(titulo string) (entity.MetadataAudiolibro, bool) {
+	for _, a := range r.audiolibros {
+		if a.GetTituloLibro() == titulo {
+			return a, true
+		}
+	}
+	return entity.MetadataAudiolibro{}, false
+}
+
+func (r *MetadataRepository) BuscarRuidoBlancoPorTitulo(titulo string) (entity.MetadataRuidoBlanco, bool) {
+	for _, rb := range r.ruidoBlanco {
+		if rb.GetTipoSonido() == titulo {
+			return rb, true
+		}
+	}
+	return entity.MetadataRuidoBlanco{}, false
+}

@@ -58,3 +58,27 @@ func (c *MetadataController) ConsultarDetallePodcast(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, detalle)
 }
+
+// GET /audios/audiolibro/:titulo
+func (c *MetadataController) ConsultarDetalleAudiolibro(ctx *gin.Context) {
+	titulo := ctx.Param("titulo")
+	log.Printf("Eco [REST]: GET /audios/audiolibro/%s invocado\n", titulo)
+	detalle, encontrado := c.fachada.ObtenerDetalleAudiolibro(titulo)
+	if !encontrado {
+		ctx.JSON(http.StatusNotFound, gin.H{"mensaje": "Audio no encontrado"})
+		return
+	}
+	ctx.JSON(http.StatusOK, detalle)
+}
+
+// GET /audios/ruidoblanco/:titulo
+func (c *MetadataController) ConsultarDetalleRuidoBlanco(ctx *gin.Context) {
+	titulo := ctx.Param("titulo")
+	log.Printf("Eco [REST]: GET /audios/ruidoblanco/%s invocado\n", titulo)
+	detalle, encontrado := c.fachada.ObtenerDetalleRuidoBlanco(titulo)
+	if !encontrado {
+		ctx.JSON(http.StatusNotFound, gin.H{"mensaje": "Audio no encontrado"})
+		return
+	}
+	ctx.JSON(http.StatusOK, detalle)
+}

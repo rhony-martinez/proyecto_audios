@@ -34,3 +34,25 @@ type PodcastDetalleDTO struct {
 	Clasificacion     string `json:"clasificacion"`
 	Archivo           string `json:"archivo"`
 }
+
+// AudiolibroDetalleDTO es la respuesta completa al consultar un audiolibro.
+type AudiolibroDetalleDTO struct {
+	TituloLibro string `json:"tituloLibro"`
+	Autor       string `json:"autor"`
+	Narrador    string `json:"narrador"`
+	Editorial   string `json:"editorial"`
+	Isbn        string `json:"isbn"`
+	Capitulo    string `json:"capitulo"`
+	Archivo     string `json:"archivo"`
+}
+
+// RuidoBlancoDetalleDTO es la respuesta completa al consultar ruido blanco.
+type RuidoBlancoDetalleDTO struct {
+	TipoSonido         string `json:"tipoSonido"`
+	FuenteAudio        string `json:"fuenteAudio"`
+	UsoSugerido        string `json:"usoSugerido"`
+	ProveedorContenido string `json:"proveedorContenido"`
+	DuracionBucle      string `json:"duracionBucle"`
+	FrecuenciaDominante string `json:"frecuenciaDominante"`
+	Archivo            string `json:"archivo"`
+}
