@@ -22,7 +22,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	stream, err := client.AudioStream(ctx, &pb.AudioRequest{NombreArchivo: "bohemian_rhapsody.mp3"})
+	stream, err := client.AudioStream(ctx, &pb.AudioRequest{NombreArchivo: "La funa.mp3"})
 	if err != nil {
 		log.Fatal(err)
 	}
