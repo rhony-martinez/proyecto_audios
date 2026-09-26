@@ -11,7 +11,7 @@ import (
 
 func main() {
 	// TODO: reemplazar IP real que obtenida con ipconfig
-	urlConexion := "amqp://admin:1234@<IP_WINDOWS>:5672/"
+	urlConexion := "amqp://admin:1234@192.168.0.108:5672/"
 
 	conexion, err := componenteConexionCola.NewRabbitConsumer(urlConexion)
 	if err != nil {

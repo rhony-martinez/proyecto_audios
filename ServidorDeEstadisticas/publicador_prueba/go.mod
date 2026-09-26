@@ -1,4 +1,4 @@
-module servidor.local/estadisticas-servidor
+module cliente.local/publicador-prueba
 
 go 1.24.5
 
