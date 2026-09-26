@@ -1,0 +1,30 @@
+package fachada
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+
+	"servidor.local/estadisticas-servidor/capaAccesoDatos"
+	"servidor.local/estadisticas-servidor/capaFachadaServices/dto"
+)
+
+type FachadaEstadisticas struct {
+	repo *capaAccesoDatos.RepositorioEstadisticas
+}
+
+func NewFachadaEstadisticas(repo *capaAccesoDatos.RepositorioEstadisticas) *FachadaEstadisticas {
+	return &FachadaEstadisticas{repo: repo}
+}
+
+func (f *FachadaEstadisticas) ProcesarMensaje(body []byte) {
+	log.Println("Eco [fachada]: ProcesarMensaje invocado")
+	var evento dto.EventoReproduccionDTO
+	if err := json.Unmarshal(body, &evento); err != nil {
+		log.Println("Error decodificando evento:", err)
+		return
+	}
+	f.repo.Registrar(evento)
+	fmt.Printf(">> Reproducción registrada: %s (%s) a las %s\n",
+		evento.Titulo, evento.TipoAudio, evento.FechaHora)
+}
