@@ -20,5 +20,10 @@ func main() {
 	router.GET("/audios/audiolibro/:titulo", controller.ConsultarDetalleAudiolibro)
 	router.GET("/audios/ruidoblanco/:titulo", controller.ConsultarDetalleRuidoBlanco)
 
+	router.POST("/audios/musica", controller.RegistrarMusica)
+	router.POST("/audios/podcast", controller.RegistrarPodcast)
+	router.POST("/audios/audiolibro", controller.RegistrarAudiolibro)
+	router.POST("/audios/ruidoblanco", controller.RegistrarRuidoBlanco)
+
 	router.Run(":8081") // 8081 para no chocar con el 8080 del ejemplo de clase
 }

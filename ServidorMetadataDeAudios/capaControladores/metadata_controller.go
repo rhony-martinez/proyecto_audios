@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"servidor.local/metadata-servidor/capaFachadaServices/dto"
 	"servidor.local/metadata-servidor/capaFachadaServices/fachada"
 )
 
@@ -81,4 +82,49 @@ func (c *MetadataController) ConsultarDetalleRuidoBlanco(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, detalle)
+}
+
+// Registrar
+func (c *MetadataController) RegistrarMusica(ctx *gin.Context) {
+	var body dto.MusicaRegistroDTO
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
+		return
+	}
+	log.Println("Eco [REST]: POST /audios/musica invocado")
+	c.fachada.RegistrarMusica(body)
+	ctx.JSON(http.StatusCreated, gin.H{"mensaje": "Audio registrado correctamente"})
+}
+
+func (c *MetadataController) RegistrarPodcast(ctx *gin.Context) {
+	var body dto.PodcastRegistroDTO
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
+		return
+	}
+	log.Println("Eco [REST]: POST /audios/podcast invocado")
+	c.fachada.RegistrarPodcast(body)
+	ctx.JSON(http.StatusCreated, gin.H{"mensaje": "Audio registrado correctamente"})
+}
+
+func (c *MetadataController) RegistrarAudiolibro(ctx *gin.Context) {
+	var body dto.AudiolibroRegistroDTO
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
+		return
+	}
+	log.Println("Eco [REST]: POST /audios/audiolibro invocado")
+	c.fachada.RegistrarAudiolibro(body)
+	ctx.JSON(http.StatusCreated, gin.H{"mensaje": "Audio registrado correctamente"})
+}
+
+func (c *MetadataController) RegistrarRuidoBlanco(ctx *gin.Context) {
+	var body dto.RuidoBlancoRegistroDTO
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
+		return
+	}
+	log.Println("Eco [REST]: POST /audios/ruidoblanco invocado")
+	c.fachada.RegistrarRuidoBlanco(body)
+	ctx.JSON(http.StatusCreated, gin.H{"mensaje": "Audio registrado correctamente"})
 }

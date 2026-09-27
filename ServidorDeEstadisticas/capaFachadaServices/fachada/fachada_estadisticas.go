@@ -24,7 +24,7 @@ func (f *FachadaEstadisticas) ProcesarMensaje(body []byte) {
 		log.Println("Error decodificando evento:", err)
 		return
 	}
-	f.repo.Registrar(evento)
-	fmt.Printf(">> Reproducción registrada: %s (%s) a las %s\n",
-		evento.Titulo, evento.TipoAudio, evento.FechaHora)
+	total := f.repo.Registrar(evento)
+	fmt.Printf(">> %s (%s) — reproducción #%d — %s\n",
+		evento.Titulo, evento.TipoAudio, total, evento.FechaHora)
 }

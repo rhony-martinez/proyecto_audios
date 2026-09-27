@@ -8,17 +8,20 @@ import (
 )
 
 type RepositorioEstadisticas struct {
-	mu      sync.Mutex
-	eventos []dto.EventoReproduccionDTO
+	mu     sync.Mutex
+	conteo map[string]int // titulo -> número de reproducciones acumuladas
 }
 
 func NewRepositorioEstadisticas() *RepositorioEstadisticas {
-	return &RepositorioEstadisticas{}
+	return &RepositorioEstadisticas{conteo: make(map[string]int)}
 }
 
-func (r *RepositorioEstadisticas) Registrar(evento dto.EventoReproduccionDTO) {
+// Registrar incrementa el contador de la canción y retorna el nuevo total.
+func (r *RepositorioEstadisticas) Registrar(evento dto.EventoReproduccionDTO) int {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	r.eventos = append(r.eventos, evento)
-	log.Printf("Eco [capaAccesoDatos]: evento almacenado, total acumulado=%d\n", len(r.eventos))
+	r.conteo[evento.Titulo]++
+	total := r.conteo[evento.Titulo]
+	log.Printf("Eco [capaAccesoDatos]: %s ahora tiene %d reproducciones\n", evento.Titulo, total)
+	return total
 }
