@@ -10,12 +10,11 @@ import (
 	"github.com/faiface/beep"
 	"github.com/faiface/beep/mp3"
 	"github.com/faiface/beep/speaker"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	pb "servidor.local/streaming-servidor/serviciosAudio"
 )
-
-//! DecodificarReproducir y RecibirAudio: tal como en tu práctica de clase,
-//! solo se cambió log.Fatalf -> log.Printf (ver explicación arriba).
 
 func DecodificarReproducir(reader io.Reader, canalSincronizacion chan struct{}) {
 	streamer, format, err := mp3.Decode(io.NopCloser(reader))
@@ -46,7 +45,11 @@ func RecibirAudio(
 			break
 		}
 		if err != nil {
-			log.Printf("Error recibiendo chunk: %v", err)
+			if status.Code(err) == codes.Canceled {
+				fmt.Println("Reproducción interrumpida por el usuario.")
+			} else {
+				log.Printf("Error recibiendo chunk: %v", err)
+			}
 			writer.CloseWithError(err)
 			break
 		}
@@ -54,18 +57,14 @@ func RecibirAudio(
 		fmt.Printf("\nFragmento #%d recibido (%d bytes) reproduciendo ...", noFragmento, len(fragmento.Data))
 
 		if _, err := writer.Write(fragmento.Data); err != nil {
-			log.Printf("Error escribiendo en pipe: %v", err)
+			// Si el usuario detiene justo en este instante.
 			break
 		}
 	}
-	// Esperar hasta que termine la reproducción
 	<-canalSincronizacion
 	fmt.Println("Reproducción finalizada.")
 }
 
-//! IniciarReproduccion es lo único NUEVO: envuelve tus dos funciones tal cual
-//! están, sin tocar su lógica interna, y agrega la capacidad de "detener" que
-//! necesita vista5 (el usuario puede abandonar en cualquier momento).
 func IniciarReproduccion(client pb.AudioServiceClient, nombreArchivo string) (func(), error) {
 	ctx, cancel := context.WithCancel(context.Background())
 
@@ -78,16 +77,12 @@ func IniciarReproduccion(client pb.AudioServiceClient, nombreArchivo string) (fu
 	pr, pw := io.Pipe()
 	canalSincronizacion := make(chan struct{})
 
-	// Función de recepción, corriendo en su propio hilo.
 	go RecibirAudio(stream, pw, canalSincronizacion)
-
-	// Función de decodificación/reproducción, corriendo en su propio hilo.
 	go DecodificarReproducir(pr, canalSincronizacion)
 
 	detener := func() {
-		speaker.Clear()  // corta el audio de inmediato, sin esperar el callback
-		cancel()         // stream.Recv() retorna error -> RecibirAudio cierra el pipe
-		pr.Close()       // libera al decodificador si seguía esperando datos
+		speaker.Clear() // corta el audio de inmediato
+		cancel()        // stream.Recv() retornará error -> RecibirAudio cierra el pipe por sí solo
 	}
 	return detener, nil
 }

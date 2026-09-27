@@ -7,7 +7,7 @@ import (
 )
 
 // rutaAudios apunta a la carpeta compartida donde el Servidor de Audios
-// guarda los mp3. Ajusta esta ruta según dónde quede tu carpeta compartida.
+// guarda los mp3.
 const rutaAudios = "../../ServidorDeAudios/audios"
 
 // AbrirArchivoAudio abre el mp3 dado su nombre de archivo y lo devuelve como *os.File.
