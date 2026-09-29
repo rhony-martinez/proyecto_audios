@@ -21,7 +21,7 @@ func main() {
 	grpcClient := pb.NewAudioServiceClient(conn)
 
 	// ?Conexión persistente al publicador de RabbitMQ (ajustar la IP de Windows)
-	publisher, err := clienteCola.NewClientePublisher("amqp://admin:1234@192.168.0.108:5672/")
+	publisher, err := clienteCola.NewClientePublisher("amqp://admin:1234@192.168.0.107:5672/")
 	if err != nil {
 		log.Fatal(err)
 	}
