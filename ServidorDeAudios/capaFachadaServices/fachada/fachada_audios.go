@@ -10,10 +10,12 @@ import (
 )
 
 type FachadaAudios struct {
+	// FachadaAudios valida las reglas de almacenamiento antes de acceder al repositorio.
 	repo *capaAccesoDatos.RepositorioAudios
 }
 
 func NewFachadaAudios(repo *capaAccesoDatos.RepositorioAudios) *FachadaAudios {
+	// NewFachadaAudios construye la fachada con el repositorio de archivos.
 	return &FachadaAudios{repo: repo}
 }
 
@@ -27,5 +29,6 @@ func (f *FachadaAudios) ValidarYConstruirRuta(nombreOriginal string) (string, er
 }
 
 func (f *FachadaAudios) ConfirmarAlmacenamiento(nombreArchivo string) {
+	// ConfirmarAlmacenamiento registra que el controlador terminó de guardar el archivo.
 	log.Printf("Eco [fachada]: audio almacenado correctamente: %s\n", nombreArchivo)
 }

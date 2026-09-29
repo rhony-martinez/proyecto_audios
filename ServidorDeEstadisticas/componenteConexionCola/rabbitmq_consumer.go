@@ -7,6 +7,7 @@ import (
 )
 
 type RabbitConsumer struct {
+	// RabbitConsumer conserva la conexión y el canal usados para consumir mensajes AMQP.
 	conn *amqp.Connection
 	ch   *amqp.Channel
 }
@@ -26,14 +27,17 @@ func NewRabbitConsumer(urlConexion string) (*RabbitConsumer, error) {
 }
 
 func (r *RabbitConsumer) DeclararCola(nombreCola string) (amqp.Queue, error) {
+	// DeclararCola crea o recupera una cola durable con el nombre indicado.
 	return r.ch.QueueDeclare(nombreCola, true, false, false, false, nil)
 }
 
 func (r *RabbitConsumer) Consumir(nombreCola string) (<-chan amqp.Delivery, error) {
+	// Consumir suscribe el canal a la cola y devuelve el flujo de entregas.
 	return r.ch.Consume(nombreCola, "", true, false, false, false, nil)
 }
 
 func (r *RabbitConsumer) Cerrar() {
+	// Cerrar libera los recursos AMQP del consumidor.
 	r.ch.Close()
 	r.conn.Close()
 }

@@ -10,13 +10,16 @@ import (
 )
 
 const NombreCola = "estadisticas_reproduccion"
+// NombreCola identifica el destino donde se publican los eventos de reproducción.
 
 type ClientePublisher struct {
+	// ClientePublisher conserva la conexión y el canal RabbitMQ durante la sesión.
 	conn *amqp.Connection
 	ch   *amqp.Channel
 }
 
 func NewClientePublisher(urlConexion string) (*ClientePublisher, error) {
+	// NewClientePublisher conecta con RabbitMQ y declara la cola de estadísticas.
 	conn, err := amqp.Dial(urlConexion)
 	if err != nil {
 		return nil, err
@@ -61,6 +64,7 @@ func (p *ClientePublisher) PublicarEventoAsync(titulo, tipoAudio string) {
 }
 
 func (p *ClientePublisher) Cerrar() {
+	// Cerrar libera el canal AMQP y la conexión con el bróker.
 	p.ch.Close()
 	p.conn.Close()
 }

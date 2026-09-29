@@ -12,6 +12,7 @@ type MetadataMusica struct {
 }
 
 func NewMetadataMusica(titulo, artista, album, genero, sello string, anio int, archivo string) MetadataMusica {
+	// Los datos se guardan en campos privados y se consultan mediante métodos Get.
 	return MetadataMusica{
 		titulo: titulo, artistaPrincipal: artista, album: album,
 		generoMusical: genero, selloDiscografico: sello,

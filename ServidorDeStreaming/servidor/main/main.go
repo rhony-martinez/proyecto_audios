@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	// main abre el puerto TCP y registra el controlador del servicio gRPC.
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatal(err)

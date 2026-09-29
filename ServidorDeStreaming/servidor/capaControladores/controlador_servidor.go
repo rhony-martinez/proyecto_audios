@@ -8,6 +8,7 @@ import (
 )
 
 type ControladorServidor struct {
+	// ControladorServidor implementa el servicio gRPC de streaming de audio.
 	pb.UnimplementedAudioServiceServer
 }
 

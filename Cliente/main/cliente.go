@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	// main abre las conexiones compartidas y entrega los clientes a la interfaz.
 	// Conexión gRPC al Servidor de Streaming
 	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {

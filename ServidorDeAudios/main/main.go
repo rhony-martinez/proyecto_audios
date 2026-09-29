@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// main construye las capas del servicio y registra la ruta HTTP para cargar audios.
 	repo := capaAccesoDatos.GetRepositorioAudios()
 	fach := fachada.NewFachadaAudios(repo)
 	controller := capaControladores.NewAudioController(fach)

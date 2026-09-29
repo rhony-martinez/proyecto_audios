@@ -1,6 +1,7 @@
 package entity
 
 type MetadataPodcast struct {
+	// Los campos agrupan datos del programa, el episodio y el archivo reproducible.
 	nombrePodcast string
 	tituloEpisodio string
 	anfitrion     string
@@ -11,6 +12,7 @@ type MetadataPodcast struct {
 }
 
 func NewMetadataPodcast(nombre, tituloEp, host, tempEp, notas, clasif, archivo string) MetadataPodcast {
+	// El constructor mantiene juntos los metadatos del programa y de su episodio.
 	return MetadataPodcast{
 		nombrePodcast: nombre, tituloEpisodio: tituloEp, anfitrion: host,
 		temporadaEpisodio: tempEp, notasShow: notas, clasificacion: clasif, archivo: archivo,

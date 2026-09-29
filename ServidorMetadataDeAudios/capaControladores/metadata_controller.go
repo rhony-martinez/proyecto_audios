@@ -11,21 +11,25 @@ import (
 )
 
 type MetadataController struct {
+	// La fachada contiene las reglas y conversiones fuera de la capa HTTP.
 	fachada *fachada.MetadataFachada
 }
 
 func NewMetadataController(f *fachada.MetadataFachada) *MetadataController {
+	// Se inyecta la fachada para que las rutas deleguen su trabajo en ella.
 	return &MetadataController{fachada: f}
 }
 
 // GET /tipos
 func (c *MetadataController) ListarTipos(ctx *gin.Context) {
+	// Responde con las categorías disponibles en formato JSON.
 	log.Println("Eco [REST]: GET /tipos invocado")
 	ctx.JSON(http.StatusOK, c.fachada.ObtenerTipos())
 }
 
 // GET /tipos/:idTipo/audios
 func (c *MetadataController) ListarAudiosPorTipo(ctx *gin.Context) {
+	// El parámetro de ruta debe ser numérico antes de consultar la fachada.
 	idTipo, err := strconv.Atoi(ctx.Param("idTipo"))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "idTipo inválido"})
@@ -37,6 +41,7 @@ func (c *MetadataController) ListarAudiosPorTipo(ctx *gin.Context) {
 
 // GET /audios/musica/:titulo
 func (c *MetadataController) ConsultarDetalleMusica(ctx *gin.Context) {
+	// Si no hay coincidencia, la API comunica el resultado con HTTP 404.
 	titulo := ctx.Param("titulo")
 	log.Printf("Eco [REST]: GET /audios/musica/%s invocado\n", titulo)
 	detalle, encontrado := c.fachada.ObtenerDetalleMusica(titulo)
@@ -50,6 +55,7 @@ func (c *MetadataController) ConsultarDetalleMusica(ctx *gin.Context) {
 // siguen el mismo patrón, cada uno bajo su propia ruta: /audios/podcast/:titulo, etc.
 // GET /audios/podcast/:titulo
 func (c *MetadataController) ConsultarDetallePodcast(ctx *gin.Context) {
+	// Si no hay coincidencia, la API comunica el resultado con HTTP 404.
 	titulo := ctx.Param("titulo")
 	log.Printf("Eco [REST]: GET /audios/podcast/%s invocado\n", titulo)
 	detalle, encontrado := c.fachada.ObtenerDetallePodcast(titulo)
@@ -62,6 +68,7 @@ func (c *MetadataController) ConsultarDetallePodcast(ctx *gin.Context) {
 
 // GET /audios/audiolibro/:titulo
 func (c *MetadataController) ConsultarDetalleAudiolibro(ctx *gin.Context) {
+	// Si no hay coincidencia, la API comunica el resultado con HTTP 404.
 	titulo := ctx.Param("titulo")
 	log.Printf("Eco [REST]: GET /audios/audiolibro/%s invocado\n", titulo)
 	detalle, encontrado := c.fachada.ObtenerDetalleAudiolibro(titulo)
@@ -74,6 +81,7 @@ func (c *MetadataController) ConsultarDetalleAudiolibro(ctx *gin.Context) {
 
 // GET /audios/ruidoblanco/:titulo
 func (c *MetadataController) ConsultarDetalleRuidoBlanco(ctx *gin.Context) {
+	// Si no hay coincidencia, la API comunica el resultado con HTTP 404.
 	titulo := ctx.Param("titulo")
 	log.Printf("Eco [REST]: GET /audios/ruidoblanco/%s invocado\n", titulo)
 	detalle, encontrado := c.fachada.ObtenerDetalleRuidoBlanco(titulo)
@@ -86,6 +94,7 @@ func (c *MetadataController) ConsultarDetalleRuidoBlanco(ctx *gin.Context) {
 
 // Registrar
 func (c *MetadataController) RegistrarMusica(ctx *gin.Context) {
+	// El cuerpo JSON se valida antes de crear la entidad en la fachada.
 	var body dto.MusicaRegistroDTO
 	if err := ctx.ShouldBindJSON(&body); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
@@ -97,6 +106,7 @@ func (c *MetadataController) RegistrarMusica(ctx *gin.Context) {
 }
 
 func (c *MetadataController) RegistrarPodcast(ctx *gin.Context) {
+	// El cuerpo JSON se valida antes de crear la entidad en la fachada.
 	var body dto.PodcastRegistroDTO
 	if err := ctx.ShouldBindJSON(&body); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
@@ -108,6 +118,7 @@ func (c *MetadataController) RegistrarPodcast(ctx *gin.Context) {
 }
 
 func (c *MetadataController) RegistrarAudiolibro(ctx *gin.Context) {
+	// El cuerpo JSON se valida antes de crear la entidad en la fachada.
 	var body dto.AudiolibroRegistroDTO
 	if err := ctx.ShouldBindJSON(&body); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})
@@ -119,6 +130,7 @@ func (c *MetadataController) RegistrarAudiolibro(ctx *gin.Context) {
 }
 
 func (c *MetadataController) RegistrarRuidoBlanco(ctx *gin.Context) {
+	// El cuerpo JSON se valida antes de crear la entidad en la fachada.
 	var body dto.RuidoBlancoRegistroDTO
 	if err := ctx.ShouldBindJSON(&body); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"mensaje": "datos inválidos: " + err.Error()})

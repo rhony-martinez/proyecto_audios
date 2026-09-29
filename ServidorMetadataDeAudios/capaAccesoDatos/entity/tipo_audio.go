@@ -7,6 +7,7 @@ type TipoAudio struct {
 }
 
 func NewTipoAudio(idTipo int, nombre string) TipoAudio {
+	// El identificador relaciona la categoría con las consultas REST.
 	return TipoAudio{idTipo: idTipo, nombre: nombre}
 }
 

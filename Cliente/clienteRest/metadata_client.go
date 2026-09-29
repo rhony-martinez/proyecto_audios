@@ -9,17 +9,21 @@ import (
 )
 
 const baseURL = "http://localhost:8081"
+// baseURL contiene la dirección del servicio REST que publica los metadatos.
 
 type TipoAudioDTO struct {
+	// TipoAudioDTO representa una categoría devuelta por el servicio de metadatos.
 	IdTipo int    `json:"idTipo"`
 	Nombre string `json:"nombre"`
 }
 
 type AudioResumenDTO struct {
+	// AudioResumenDTO contiene el título que se muestra en una lista de resultados.
 	Titulo string `json:"titulo"`
 }
 
 type MusicaDetalleDTO struct {
+	// MusicaDetalleDTO reúne los datos enviados al consultar una canción.
 	Titulo            string `json:"titulo"`
 	ArtistaPrincipal  string `json:"artistaPrincipal"`
 	Album             string `json:"album"`
@@ -30,6 +34,7 @@ type MusicaDetalleDTO struct {
 }
 
 type PodcastDetalleDTO struct {
+	// PodcastDetalleDTO reúne los datos enviados al consultar un podcast.
 	NombrePodcast     string `json:"nombrePodcast"`
 	TituloEpisodio    string `json:"tituloEpisodio"`
 	Anfitrion         string `json:"anfitrion"`
@@ -40,6 +45,7 @@ type PodcastDetalleDTO struct {
 }
 
 type AudiolibroDetalleDTO struct {
+	// AudiolibroDetalleDTO reúne los datos enviados al consultar un audiolibro.
 	TituloLibro string `json:"tituloLibro"`
 	Autor       string `json:"autor"`
 	Narrador    string `json:"narrador"`
@@ -50,6 +56,7 @@ type AudiolibroDetalleDTO struct {
 }
 
 type RuidoBlancoDetalleDTO struct {
+	// RuidoBlancoDetalleDTO reúne los datos enviados al consultar ruido blanco.
 	TipoSonido          string `json:"tipoSonido"`
 	FuenteAudio         string `json:"fuenteAudio"`
 	UsoSugerido         string `json:"usoSugerido"`
@@ -60,6 +67,7 @@ type RuidoBlancoDetalleDTO struct {
 }
 
 func ObtenerTipos() ([]TipoAudioDTO, error) {
+	// ObtenerTipos solicita al servicio REST las categorías de audio disponibles.
 	log.Println("Eco [clienteRest]: ObtenerTipos invocado")
 	resp, err := http.Get(baseURL + "/tipos")
 	if err != nil {
@@ -75,6 +83,7 @@ func ObtenerTipos() ([]TipoAudioDTO, error) {
 }
 
 func ObtenerAudiosPorTipo(idTipo int) ([]AudioResumenDTO, error) {
+	// ObtenerAudiosPorTipo pide los títulos asociados al identificador de categoría.
 	log.Printf("Eco [clienteRest]: ObtenerAudiosPorTipo llamado con idTipo=%d\n", idTipo)
 	resp, err := http.Get(fmt.Sprintf("%s/tipos/%d/audios", baseURL, idTipo))
 	if err != nil {
@@ -106,6 +115,7 @@ func segmentoPorTipo(idTipo int) string {
 }
 
 func obtenerDetalleGenerico(segmento, titulo string, destino interface{}) error {
+	// obtenerDetalleGenerico consulta un título y decodifica la respuesta en el DTO indicado.
 	log.Printf("Eco [clienteRest]: ObtenerDetalle llamado con titulo=%s\n", titulo)
 	urlConsulta := fmt.Sprintf("%s/audios/%s/%s", baseURL, segmento, url.PathEscape(titulo))
 
@@ -122,24 +132,28 @@ func obtenerDetalleGenerico(segmento, titulo string, destino interface{}) error 
 }
 
 func ObtenerDetalleMusica(titulo string) (MusicaDetalleDTO, error) {
+	// ObtenerDetalleMusica devuelve los metadatos completos de una canción.
 	var d MusicaDetalleDTO
 	err := obtenerDetalleGenerico("musica", titulo, &d)
 	return d, err
 }
 
 func ObtenerDetallePodcast(titulo string) (PodcastDetalleDTO, error) {
+	// ObtenerDetallePodcast devuelve los metadatos completos de un podcast.
 	var d PodcastDetalleDTO
 	err := obtenerDetalleGenerico("podcast", titulo, &d)
 	return d, err
 }
 
 func ObtenerDetalleAudiolibro(titulo string) (AudiolibroDetalleDTO, error) {
+	// ObtenerDetalleAudiolibro devuelve los metadatos completos de un audiolibro.
 	var d AudiolibroDetalleDTO
 	err := obtenerDetalleGenerico("audiolibro", titulo, &d)
 	return d, err
 }
 
 func ObtenerDetalleRuidoBlanco(titulo string) (RuidoBlancoDetalleDTO, error) {
+	// ObtenerDetalleRuidoBlanco devuelve los metadatos completos de un sonido.
 	var d RuidoBlancoDetalleDTO
 	err := obtenerDetalleGenerico("ruidoblanco", titulo, &d)
 	return d, err

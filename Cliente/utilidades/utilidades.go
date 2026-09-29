@@ -17,6 +17,7 @@ import (
 )
 
 func DecodificarReproducir(reader io.Reader, canalSincronizacion chan struct{}) {
+	// DecodificarReproducir convierte el flujo MP3 en audio y señala al canal cuando termina.
 	streamer, format, err := mp3.Decode(io.NopCloser(reader))
 	if err != nil {
 		log.Printf("error decodificando MP3: %v", err)
@@ -33,6 +34,7 @@ func DecodificarReproducir(reader io.Reader, canalSincronizacion chan struct{}) 
 }
 
 func RecibirAudio(
+	// RecibirAudio copia los fragmentos recibidos al pipe y espera la finalización del audio.
 	stream pb.AudioService_AudioStreamClient,
 	writer *io.PipeWriter,
 	canalSincronizacion chan struct{}) {
@@ -66,6 +68,7 @@ func RecibirAudio(
 }
 
 func IniciarReproduccion(client pb.AudioServiceClient, nombreArchivo string) (func(), error) {
+	// IniciarReproduccion conecta el stream gRPC con el decodificador mediante un pipe.
 	ctx, cancel := context.WithCancel(context.Background())
 
 	stream, err := client.AudioStream(ctx, &pb.AudioRequest{NombreArchivo: nombreArchivo})

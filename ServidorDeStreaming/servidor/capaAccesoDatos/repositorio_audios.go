@@ -12,6 +12,7 @@ const rutaAudios = "../../ServidorDeAudios/audios"
 
 // AbrirArchivoAudio abre el mp3 dado su nombre de archivo y lo devuelve como *os.File.
 func AbrirArchivoAudio(nombreArchivo string) (*os.File, error) {
+	// AbrirArchivoAudio localiza y abre el archivo compartido para transmitirlo.
 	ruta := filepath.Join(rutaAudios, nombreArchivo)
 	file, err := os.Open(ruta)
 	if err != nil {

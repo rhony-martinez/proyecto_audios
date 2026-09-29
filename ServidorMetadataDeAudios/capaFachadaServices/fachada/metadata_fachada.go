@@ -9,14 +9,17 @@ import (
 )
 
 type MetadataFachada struct {
+	// El repositorio es la fuente de entidades para las consultas y registros.
 	repo *repository.MetadataRepository
 }
 
 func NewMetadataFachada(repo *repository.MetadataRepository) *MetadataFachada {
+	// La dependencia se recibe desde el punto de entrada del servicio.
 	return &MetadataFachada{repo: repo}
 }
 
 func (f *MetadataFachada) ObtenerTipos() []dto.TipoAudioDTO {
+	// La conversión evita exponer directamente las entidades internas.
 	log.Println("Eco [fachada]: ObtenerTipos invocado")
 	tipos := f.repo.ListarTipos()
 	resultado := make([]dto.TipoAudioDTO, 0, len(tipos))
@@ -125,6 +128,7 @@ func (f *MetadataFachada) ObtenerDetalleRuidoBlanco(titulo string) (dto.RuidoBla
 
 // RegistrarMusica permite registrar un audio de tipo música
 func (f *MetadataFachada) RegistrarMusica(d dto.MusicaRegistroDTO) {
+	// El DTO REST se convierte en entidad antes de guardarse.
 	log.Println("Eco [fachada]: RegistrarMusica invocado")
 	m := entity.NewMetadataMusica(d.Titulo, d.ArtistaPrincipal, d.Album, d.GeneroMusical, d.SelloDiscografico, d.AnioLanzamiento, d.Archivo)
 	f.repo.RegistrarMusica(m)
@@ -132,6 +136,7 @@ func (f *MetadataFachada) RegistrarMusica(d dto.MusicaRegistroDTO) {
 
 // RegistrarPodcast permite registrar un audio de tipo podcast
 func (f *MetadataFachada) RegistrarPodcast(d dto.PodcastRegistroDTO) {
+	// El DTO REST se convierte en entidad antes de guardarse.
 	log.Println("Eco [fachada]: RegistrarPodcast invocado")
 	p := entity.NewMetadataPodcast(d.NombrePodcast, d.TituloEpisodio, d.Anfitrion, d.TemporadaEpisodio, d.NotasShow, d.Clasificacion, d.Archivo)
 	f.repo.RegistrarPodcast(p)
@@ -139,6 +144,7 @@ func (f *MetadataFachada) RegistrarPodcast(d dto.PodcastRegistroDTO) {
 
 // RegistrarAudiolibro permite registrar un audio de tipo audiolibro
 func (f *MetadataFachada) RegistrarAudiolibro(d dto.AudiolibroRegistroDTO) {
+	// El DTO REST se convierte en entidad antes de guardarse.
 	log.Println("Eco [fachada]: RegistrarAudiolibro invocado")
 	a := entity.NewMetadataAudiolibro(d.TituloLibro, d.Autor, d.Narrador, d.Editorial, d.Isbn, d.Capitulo, d.Archivo)
 	f.repo.RegistrarAudiolibro(a)
@@ -146,6 +152,7 @@ func (f *MetadataFachada) RegistrarAudiolibro(d dto.AudiolibroRegistroDTO) {
 
 // RegistrarRuidoBlanco permite registrar un audio de tipo ruido blanco
 func (f *MetadataFachada) RegistrarRuidoBlanco(d dto.RuidoBlancoRegistroDTO) {
+	// El DTO REST se convierte en entidad antes de guardarse.
 	log.Println("Eco [fachada]: RegistrarRuidoBlanco invocado")
 	rb := entity.NewMetadataRuidoBlanco(d.TipoSonido, d.FuenteAudio, d.UsoSugerido, d.ProveedorContenido, d.DuracionBucle, d.FrecuenciaDominante, d.Archivo)
 	f.repo.RegistrarRuidoBlanco(rb)
