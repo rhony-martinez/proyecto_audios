@@ -1,6 +1,7 @@
 package entity
 
 type MetadataAudiolibro struct {
+	// El archivo asociado permite que el servidor de streaming localice el audio.
 	tituloLibro string
 	autor       string
 	narrador    string
@@ -11,6 +12,7 @@ type MetadataAudiolibro struct {
 }
 
 func NewMetadataAudiolibro(titulo, autor, narrador, editorial, isbn, capitulo, archivo string) MetadataAudiolibro {
+	// Se conservan los datos editoriales junto al nombre del archivo de audio.
 	return MetadataAudiolibro{
 		tituloLibro: titulo, autor: autor, narrador: narrador,
 		editorial: editorial, isbn: isbn, capitulo: capitulo, archivo: archivo,

@@ -29,6 +29,7 @@ func NewMetadataRepository() *MetadataRepository {
 }
 
 func (r *MetadataRepository) cargarTipos() {
+	// Las categorías e identificadores usados por la API se definen aquí.
 	r.tipos = []entity.TipoAudio{
 		entity.NewTipoAudio(1, "Música"),
 		entity.NewTipoAudio(2, "Podcasts"),
@@ -38,6 +39,7 @@ func (r *MetadataRepository) cargarTipos() {
 }
 
 func (r *MetadataRepository) cargarMusica() {
+	// Estos registros de ejemplo inicializan la colección de canciones.
 	r.musica = []entity.MetadataMusica{
 		entity.NewMetadataMusica("La funa", "AlcolirykoZ", "sencillo", "Hip Hop", "El Arkeólogo", 2025, "La funa.mp3"),
 		entity.NewMetadataMusica("El Remate", "AlcolirykoZ", "Anarcolirykoz", "Hip Hop", "El Arkeólogo", 2022, "El Remate.mp3"),
@@ -45,6 +47,7 @@ func (r *MetadataRepository) cargarMusica() {
 }
 
 func (r *MetadataRepository) cargarPodcasts() {
+	// Estos registros de ejemplo inicializan la colección de podcasts.
 	r.podcasts = []entity.MetadataPodcast{
 		entity.NewMetadataPodcast("Radio Ambulante", "Romper el silencio", "Daniel Alarcón", "Temporada 14", "Después de 20 años, se sientan a hablar. En octubre de 2001, Oswaldo Díaz fue secuestrado y esa tragedia atormentaría a su familia durante años. Pero cuando los victimarios firmaron un acuerdo de paz, la familia de Oswaldo se vio obligada a confrontarlos y a considerar el costo del perdón.", "Apto para todo público / Contenido periodístico", "romper_el_silencio.mp3"),
 		entity.NewMetadataPodcast("The Wild Project", "Daniel Brunner (Ex FBI) | Así te hacen CONFESAR, Interrogar a psicópatas", "Jordi Wild", "Episodio 383", "Daniel Brunner, con 20 años en el FBI y experiencia en SWAT, revela las técnicas psicológicas usadas en interrogatorios para lograr confesiones de criminales y psicópatas.", "Mayores de 16 años / Contenido criminalístico", "the_wild_project_383.mp3"),
@@ -52,6 +55,7 @@ func (r *MetadataRepository) cargarPodcasts() {
 }
 
 func (r *MetadataRepository) cargarAudiolibros() {
+	// Estos registros de ejemplo inicializan la colección de audiolibros.
 	r.audiolibros = []entity.MetadataAudiolibro{
 		entity.NewMetadataAudiolibro("Fábulas de Esopo", "Esopo", "Luis Ignacio González", "Penguin Random House Audio", "978-8491056621", "La zorra y las uvas", "fabulas_esopo.mp3"),
 		entity.NewMetadataAudiolibro("Alí Babá y los cuarenta ladrones", "Anónimo", "Arturo López", "Kobo Audiolibros", "978-8424115005", "Ábrete sésamo", "alibaba_y_los_40_ladrones.mp3"),
@@ -59,6 +63,7 @@ func (r *MetadataRepository) cargarAudiolibros() {
 }
 
 func (r *MetadataRepository) cargarRuidoBlanco() {
+	// Estos registros de ejemplo inicializan la colección de sonidos.
 	r.ruidoBlanco = []entity.MetadataRuidoBlanco{
 		entity.NewMetadataRuidoBlanco("Ruido Blanco Estático", "Frecuencias Profundas", "Relajación y Concentración", "TheMediaGuy", "5:00 min", "Graves / Subgraves", "soft_soothing_deep_white_noise_378857.mp3"),
 		entity.NewMetadataRuidoBlanco("Ruido Marrón Ambientado", "Lluvia Urbana y Aves", "Dormir, Meditar y Bloquear Ruido", "WhiteNoiseSleepers", "9:41 min", "Graves Intensos / Frecuencias Bajas", "rainy_day_in_town_with_birds_singing_194011.mp3"),
@@ -68,28 +73,34 @@ func (r *MetadataRepository) cargarRuidoBlanco() {
 // --- Operaciones de consulta ---
 
 func (r *MetadataRepository) ListarTipos() []entity.TipoAudio {
+	// La lista se usa para construir la respuesta de categorías.
 	log.Println("Eco [capaAccesoDatos]: ListarTipos invocado")
 	return r.tipos
 }
 
 func (r *MetadataRepository) ListarMusica() []entity.MetadataMusica {
+	// Devuelve la colección consultada por las capas superiores.
 	log.Println("Eco [capaAccesoDatos]: ListarMusica invocado")
 	return r.musica
 }
 func (r *MetadataRepository) ListarPodcasts() []entity.MetadataPodcast {
+	// Devuelve la colección consultada por las capas superiores.
 	log.Println("Eco [capaAccesoDatos]: ListarPodcasts invocado")
 	return r.podcasts
 }
 func (r *MetadataRepository) ListarAudiolibros() []entity.MetadataAudiolibro {
+	// Devuelve la colección consultada por las capas superiores.
 	log.Println("Eco [capaAccesoDatos]: ListarAudiolibros invocado")
 	return r.audiolibros
 }
 func (r *MetadataRepository) ListarRuidoBlanco() []entity.MetadataRuidoBlanco {
+	// Devuelve la colección consultada por las capas superiores.
 	log.Println("Eco [capaAccesoDatos]: ListarRuidoBlanco invocado")
 	return r.ruidoBlanco
 }
 
 func (r *MetadataRepository) BuscarMusicaPorTitulo(titulo string) (entity.MetadataMusica, bool) {
+	// La búsqueda compara el título y devuelve false cuando no hay coincidencia.
 	for _, m := range r.musica {
 		if m.GetTitulo() == titulo {
 			return m, true
@@ -99,6 +110,7 @@ func (r *MetadataRepository) BuscarMusicaPorTitulo(titulo string) (entity.Metada
 }
 
 func (r *MetadataRepository) BuscarPodcastPorNombre(nombre string) (entity.MetadataPodcast, bool) {
+	// La búsqueda compara el nombre del programa y devuelve false si no existe.
 	for _, p := range r.podcasts {
 		if p.GetNombrePodcast() == nombre {
 			return p, true
@@ -108,6 +120,7 @@ func (r *MetadataRepository) BuscarPodcastPorNombre(nombre string) (entity.Metad
 }
 
 func (r *MetadataRepository) BuscarAudiolibroPorTitulo(titulo string) (entity.MetadataAudiolibro, bool) {
+	// La búsqueda compara el título del libro y devuelve false si no existe.
 	for _, a := range r.audiolibros {
 		if a.GetTituloLibro() == titulo {
 			return a, true
@@ -117,6 +130,7 @@ func (r *MetadataRepository) BuscarAudiolibroPorTitulo(titulo string) (entity.Me
 }
 
 func (r *MetadataRepository) BuscarRuidoBlancoPorTitulo(titulo string) (entity.MetadataRuidoBlanco, bool) {
+	// La etiqueta del sonido funciona como clave de búsqueda para esta colección.
 	for _, rb := range r.ruidoBlanco {
 		if rb.GetTipoSonido() == titulo {
 			return rb, true
@@ -127,6 +141,7 @@ func (r *MetadataRepository) BuscarRuidoBlancoPorTitulo(titulo string) (entity.M
 
 // --- Operaciones de registro ---
 func (r *MetadataRepository) RegistrarMusica(m entity.MetadataMusica) {
+	// El bloqueo evita escrituras concurrentes sobre la colección.
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	log.Println("Eco [capaAccesoDatos]: RegistrarMusica invocado, titulo=", m.GetTitulo())
@@ -134,6 +149,7 @@ func (r *MetadataRepository) RegistrarMusica(m entity.MetadataMusica) {
 }
 
 func (r *MetadataRepository) RegistrarPodcast(p entity.MetadataPodcast) {
+	// El bloqueo evita escrituras concurrentes sobre la colección.
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	log.Println("Eco [capaAccesoDatos]: RegistrarPodcast invocado, titulo=", p.GetNombrePodcast())
@@ -141,6 +157,7 @@ func (r *MetadataRepository) RegistrarPodcast(p entity.MetadataPodcast) {
 }
 
 func (r *MetadataRepository) RegistrarAudiolibro(a entity.MetadataAudiolibro) {
+	// El bloqueo evita escrituras concurrentes sobre la colección.
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	log.Println("Eco [capaAccesoDatos]: RegistrarAudiolibro invocado, titulo=", a.GetTituloLibro())
@@ -148,6 +165,7 @@ func (r *MetadataRepository) RegistrarAudiolibro(a entity.MetadataAudiolibro) {
 }
 
 func (r *MetadataRepository) RegistrarRuidoBlanco(rb entity.MetadataRuidoBlanco) {
+	// El bloqueo evita escrituras concurrentes sobre la colección.
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	log.Println("Eco [capaAccesoDatos]: RegistrarRuidoBlanco invocado, titulo=", rb.GetTipoSonido())

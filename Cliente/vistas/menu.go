@@ -17,6 +17,7 @@ import (
 var lector = bufio.NewReader(os.Stdin)
 
 func leerOpcion() string {
+	// leerOpcion obtiene una línea de la entrada estándar y elimina el salto de línea.
 	texto, _ := lector.ReadString('\n')
 	return strings.TrimSpace(texto)
 }
@@ -43,6 +44,7 @@ func MostrarMenuPrincipal(grpcClient pb.AudioServiceClient, publisher *clienteCo
 
 // mostrarTiposAudio - vista 2
 func mostrarTiposAudio(grpcClient pb.AudioServiceClient, publisher *clienteCola.ClientePublisher) {
+	// mostrarTiposAudio consulta las categorías y permite abrir una lista o regresar.
 	tipos, err := clienteRest.ObtenerTipos()
 	if err != nil {
 		log.Println("Error obteniendo tipos:", err)
@@ -72,6 +74,7 @@ func mostrarTiposAudio(grpcClient pb.AudioServiceClient, publisher *clienteCola.
 
 // mostrarListaAudios - vista 3
 func mostrarListaAudios(tipo clienteRest.TipoAudioDTO, grpcClient pb.AudioServiceClient, publisher *clienteCola.ClientePublisher) {
+	// mostrarListaAudios presenta los títulos de una categoría y permite consultar uno.
 	audios, err := clienteRest.ObtenerAudiosPorTipo(tipo.IdTipo)
 	if err != nil {
 		log.Println("Error obteniendo audios:", err)
@@ -101,6 +104,7 @@ func mostrarListaAudios(tipo clienteRest.TipoAudioDTO, grpcClient pb.AudioServic
 
 // mostrarDetalleAudio - vista 4
 func mostrarDetalleAudio(tipo clienteRest.TipoAudioDTO, titulo string, grpcClient pb.AudioServiceClient, publisher *clienteCola.ClientePublisher) {
+	// mostrarDetalleAudio muestra la ficha y ofrece reproducir el audio o regresar.
 	imprimir, archivo, err := obtenerDetalle(tipo, titulo)
 	if err != nil {
 		log.Println("Error obteniendo detalle:", err)

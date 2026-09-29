@@ -10,14 +10,17 @@ import (
 )
 
 type FachadaEstadisticas struct {
+	// FachadaEstadisticas decodifica eventos y coordina el registro de reproducciones.
 	repo *capaAccesoDatos.RepositorioEstadisticas
 }
 
 func NewFachadaEstadisticas(repo *capaAccesoDatos.RepositorioEstadisticas) *FachadaEstadisticas {
+	// NewFachadaEstadisticas configura la fachada con el repositorio de contadores.
 	return &FachadaEstadisticas{repo: repo}
 }
 
 func (f *FachadaEstadisticas) ProcesarMensaje(body []byte) {
+	// ProcesarMensaje valida el evento JSON, incrementa su contador y muestra el total.
 	log.Println("Eco [fachada]: ProcesarMensaje invocado")
 	var evento dto.EventoReproduccionDTO
 	if err := json.Unmarshal(body, &evento); err != nil {

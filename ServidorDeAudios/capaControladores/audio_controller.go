@@ -9,10 +9,12 @@ import (
 )
 
 type AudioController struct {
+	// AudioController adapta las solicitudes HTTP de carga a la fachada de audios.
 	fachada *fachada.FachadaAudios
 }
 
 func NewAudioController(f *fachada.FachadaAudios) *AudioController {
+	// NewAudioController crea el controlador con la fachada que ejecuta las operaciones.
 	return &AudioController{fachada: f}
 }
 

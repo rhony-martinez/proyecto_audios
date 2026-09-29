@@ -11,6 +11,7 @@ import (
 
 // EnviarFragmentosAudio lee el archivo en chunks de 32KB y los envía por el stream gRPC.
 func EnviarFragmentosAudio(nombreArchivo string, stream pb.AudioService_AudioStreamServer) error {
+	// Se envía cada bloque leído hasta alcanzar el final del archivo.
 	log.Printf("Eco [fachada]: EnviarFragmentosAudio llamado con nombreArchivo=%s\n", nombreArchivo)
 
 	file, err := capaAccesoDatos.AbrirArchivoAudio(nombreArchivo)

@@ -1,6 +1,7 @@
 package entity
 
 type MetadataRuidoBlanco struct {
+	// Estos campos describen el origen, uso y características del sonido.
 	tipoSonido         string
 	fuenteAudio        string
 	usoSugerido        string
@@ -11,6 +12,7 @@ type MetadataRuidoBlanco struct {
 }
 
 func NewMetadataRuidoBlanco(tipoSonido, fuente, uso, proveedor, duracion, frecuencia, archivo string) MetadataRuidoBlanco {
+	// El constructor asocia la descripción del sonido con su archivo reproducible.
 	return MetadataRuidoBlanco{
 		tipoSonido: tipoSonido, fuenteAudio: fuente, usoSugerido: uso,
 		proveedorContenido: proveedor, duracionBucle: duracion,

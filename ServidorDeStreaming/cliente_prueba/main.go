@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	// main descarga un stream gRPC y guarda sus fragmentos en un archivo local de prueba.
 	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatal(err)

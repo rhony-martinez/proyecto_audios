@@ -8,11 +8,13 @@ import (
 )
 
 type RepositorioEstadisticas struct {
+	// RepositorioEstadisticas mantiene el total de reproducciones acumuladas por título.
 	mu     sync.Mutex
 	conteo map[string]int // titulo -> número de reproducciones acumuladas
 }
 
 func NewRepositorioEstadisticas() *RepositorioEstadisticas {
+	// NewRepositorioEstadisticas inicia un repositorio con el contador vacío.
 	return &RepositorioEstadisticas{conteo: make(map[string]int)}
 }
 

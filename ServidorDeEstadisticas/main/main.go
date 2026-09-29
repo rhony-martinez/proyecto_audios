@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	// main conecta con RabbitMQ, construye las capas y comienza el consumo de eventos.
 	// TODO: reemplazar IP real que obtenida con ipconfig
 	urlConexion := "amqp://admin:1234@192.168.0.107:5672/"
 

@@ -10,15 +10,18 @@ import (
 const NombreCola = "estadisticas_reproduccion"
 
 type ConsumidorEstadisticas struct {
+	// ConsumidorEstadisticas conecta la cola de mensajes con el procesamiento de eventos.
 	conexion *componenteConexionCola.RabbitConsumer
 	fachada  *fachada.FachadaEstadisticas
 }
 
 func NewConsumidorEstadisticas(conexion *componenteConexionCola.RabbitConsumer, f *fachada.FachadaEstadisticas) *ConsumidorEstadisticas {
+	// NewConsumidorEstadisticas enlaza RabbitMQ con la fachada de estadísticas.
 	return &ConsumidorEstadisticas{conexion: conexion, fachada: f}
 }
 
 func (c *ConsumidorEstadisticas) EscucharCola() error {
+	// EscucharCola declara la cola y procesa cada evento recibido.
 	if _, err := c.conexion.DeclararCola(NombreCola); err != nil {
 		return err
 	}

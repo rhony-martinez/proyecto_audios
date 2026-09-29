@@ -11,6 +11,7 @@ import (
 const carpetaAudios = "audios"
 
 type RepositorioAudios struct {
+	// RepositorioAudios centraliza la ruta de almacenamiento y sincroniza sus comprobaciones.
 	mu sync.Mutex
 }
 
@@ -29,10 +30,12 @@ func GetRepositorioAudios() *RepositorioAudios {
 }
 
 func (r *RepositorioAudios) RutaDestino(nombreArchivo string) string {
+	// RutaDestino construye la ruta local donde se guarda el archivo de audio.
 	return filepath.Join(carpetaAudios, nombreArchivo)
 }
 
 func (r *RepositorioAudios) ExisteArchivo(nombreArchivo string) bool {
+	// ExisteArchivo comprueba si el archivo solicitado está almacenado.
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	_, err := os.Stat(r.RutaDestino(nombreArchivo))

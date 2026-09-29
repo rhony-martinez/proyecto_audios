@@ -17,6 +17,7 @@ import (
 var lector = bufio.NewReader(os.Stdin)
 
 func leer(mensaje string) string {
+	// leer muestra un mensaje y devuelve la entrada del usuario sin espacios externos.
 	fmt.Print(mensaje)
 	texto, _ := lector.ReadString('\n')
 	return strings.TrimSpace(texto)
@@ -25,6 +26,7 @@ func leer(mensaje string) string {
 // subirAudio envía el mp3 al Servidor de Audios (REST) y retorna el nombre con
 // el que quedó almacenado.
 func subirAudio(rutaLocal string) (string, error) {
+	// subirAudio abre un archivo local y lo envía al servicio como multipart.
 	file, err := os.Open(rutaLocal)
 	if err != nil {
 		return "", err
@@ -52,6 +54,7 @@ func subirAudio(rutaLocal string) (string, error) {
 
 // registrarMetadata envía los metadatos al Servidor de Metadatos (REST).
 func registrarMetadata(segmento string, body map[string]interface{}) error {
+	// registrarMetadata serializa y envía los datos del audio al endpoint correspondiente.
 	data, _ := json.Marshal(body)
 	resp, err := http.Post("http://localhost:8081/audios/"+segmento, "application/json", bytes.NewReader(data))
 	if err != nil {
@@ -66,6 +69,7 @@ func registrarMetadata(segmento string, body map[string]interface{}) error {
 }
 
 func main() {
+	// main coordina la carga del archivo y el registro de sus metadatos.
 	fmt.Println("=== Panel de Administrador ===")
 	rutaLocal := leer("Ruta del archivo .mp3 en tu disco: ")
 
@@ -82,6 +86,7 @@ func main() {
 	var segmento string
 	var body map[string]interface{}
 
+	// Cada opción prepara el segmento REST y los campos propios de su categoría.
 	switch tipo {
 	case "1":
 		segmento = "musica"

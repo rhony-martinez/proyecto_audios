@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// El punto de entrada conecta repositorio, fachada, controlador y rutas REST.
 	repo := repository.NewMetadataRepository()
 	fach := fachada.NewMetadataFachada(repo)
 	controller := capaControladores.NewMetadataController(fach)
